@@ -1,7 +1,7 @@
-import 'package:admin_dashboard/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:admin_dashboard/providers/auth_provider.dart';
 import 'package:admin_dashboard/providers/sidemenu_provider.dart';
 
 import 'package:admin_dashboard/router/router.dart';
@@ -63,9 +63,11 @@ class Sidebar extends StatelessWidget {
               icon: Icons.attach_money_outlined,
               onPressed: () {}),
           MenuItem(
-              text: 'Customers',
-              icon: Icons.people_alt_outlined,
-              onPressed: () {}),
+            text: 'Users',
+            icon: Icons.people_alt_outlined,
+            onPressed: () => navigateTo(Flurorouter.usersRoute),
+            isActive: sideMenuProvider.currentPage == Flurorouter.usersRoute,
+          ),
           SizedBox(height: 30),
           TextSeparator(text: 'UI Elements'),
           MenuItem(

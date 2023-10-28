@@ -1,16 +1,20 @@
 # admin_dashboard
 
-A new Flutter project.
+Admin Dashboard Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This Project simulates a platform where the user can manage their business in all aspects that concern them.
 
-A few resources to get you started if this is your first Flutter project:
+## Raise the project
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### Important!
+- You are going to need this Backend
+```
+https://github.com/FLeiras/admin_dashboard_flutter_backend.git
+```
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Clone the Dashboard repository
+```
+https://github.com/FLeiras/admin_dashborad_flutter.git
+```
