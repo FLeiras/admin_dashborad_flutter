@@ -25,7 +25,7 @@ class UsersProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Usuario> getUserById(String uid) async {
+  Future<Usuario?> getUserById(String uid) async {
     try {
       final resp = await CafeApi.httpGet('/usuarios/$uid');
       final user = Usuario.fromMap(resp);
@@ -33,7 +33,7 @@ class UsersProvider extends ChangeNotifier {
       return user;
     } catch (e) {
       print(e);
-      throw e;
+      return null;
     }
   }
 
@@ -50,6 +50,17 @@ class UsersProvider extends ChangeNotifier {
     );
 
     ascending = !ascending;
+
+    notifyListeners();
+  }
+
+  void refreshUser(Usuario newUser) {
+    users = users.map((user) {
+      if (user.uid == newUser.uid) {
+        user = newUser;
+      }
+      return user;
+    }).toList();
 
     notifyListeners();
   }
