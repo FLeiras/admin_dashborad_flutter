@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:admin_dashboard/providers/users_provider.dart';
+import 'package:admin_dashboard/providers/providers.dart';
 
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 import 'package:admin_dashboard/datatables/users_datasource.dart';

@@ -1,53 +1,38 @@
 import 'package:flutter/material.dart';
 
-import 'package:admin_dashboard/ui/layouts/auth/widgets/background_twitter.dart';
-import 'package:admin_dashboard/ui/layouts/auth/widgets/custom_title.dart';
-import 'package:admin_dashboard/ui/layouts/auth/widgets/links_bar.dart';
-
+import 'widgets/widgets.dart';
 
 class AuthLayout extends StatelessWidget {
-
   final Widget child;
 
-  const AuthLayout({
-    Key? key, 
-    required this.child
-  }) : super(key: key);
-  
+  const AuthLayout({Key? key, required this.child}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Scrollbar(
-        // isAlwaysShown: true,
-        child: ListView(
-          physics: ClampingScrollPhysics(),
-          children: [
+        body: Scrollbar(
+      // isAlwaysShown: true,
+      child: ListView(
+        physics: ClampingScrollPhysics(),
+        children: [
+          (size.width > 1000)
+              ? _DesktopBody(child: child)
+              : _MobileBody(child: child),
 
-            ( size.width > 1000 )
-              ? _DesktopBody( child: child)
-              : _MobileBody( child: child ),
-            
-            // LinksBar
-            LinksBar()
-          ],
-        ),
-      )
-    );
+          // LinksBar
+          LinksBar()
+        ],
+      ),
+    ));
   }
 }
 
-
 class _MobileBody extends StatelessWidget {
-
   final Widget child;
 
-  const _MobileBody({
-    Key? key, 
-    required this.child
-  }) : super(key: key);
+  const _MobileBody({Key? key, required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,14 +42,13 @@ class _MobileBody extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox( height: 20 ),
+          SizedBox(height: 20),
           CustomTitle(),
           Container(
             width: double.infinity,
             height: 420,
             child: child,
           ),
-
           Container(
             width: double.infinity,
             height: 400,
@@ -76,21 +60,13 @@ class _MobileBody extends StatelessWidget {
   }
 }
 
-
 class _DesktopBody extends StatelessWidget {
-
   final Widget child;
 
-  const _DesktopBody({
-    Key? key, 
-    required this.child
-  }) : super(key: key);
-
-
+  const _DesktopBody({Key? key, required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     final size = MediaQuery.of(context).size;
 
     return Container(
@@ -99,10 +75,8 @@ class _DesktopBody extends StatelessWidget {
       color: Colors.black,
       child: Row(
         children: [
-
           // Twitter Background
           Expanded(child: BackgroundTwitter()),
-          
 
           // View Container
           Container(
@@ -111,14 +85,13 @@ class _DesktopBody extends StatelessWidget {
             color: Colors.black,
             child: Column(
               children: [
-                SizedBox( height: 20 ),
+                SizedBox(height: 20),
                 CustomTitle(),
-                SizedBox( height: 50 ),
-                Expanded(child: child ),
+                SizedBox(height: 50),
+                Expanded(child: child),
               ],
             ),
           )
-
         ],
       ),
     );
