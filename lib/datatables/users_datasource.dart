@@ -11,11 +11,18 @@ class UsersDTS extends DataTableSource {
   DataRow getRow(int index) {
     final user = users[index];
 
-    final image = Image(
-      image: AssetImage('noimage.jpg'),
-      width: 35,
-      height: 35,
-    );
+    final image = (user.img == null)
+        ? Image(
+            image: AssetImage('noimage.jpg'),
+            width: 35,
+            height: 35,
+          )
+        : FadeInImage.assetNetwork(
+            placeholder: 'loader.gif',
+            image: user.img!,
+            width: 35,
+            height: 35,
+          );
 
     return DataRow.byIndex(
       index: index,
