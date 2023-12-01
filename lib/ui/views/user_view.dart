@@ -1,5 +1,6 @@
 import 'package:admin_dashboard/services/navigation_service.dart';
 import 'package:admin_dashboard/services/notifications_service.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -192,6 +193,10 @@ class _AvatarContainer extends StatelessWidget {
     final userFormProvider = Provider.of<UserFormProvider>(context);
     final user = userFormProvider.user;
 
+    final image = (user!.img == null)
+        ? Image(image: AssetImage('noimage.jpg'))
+        : FadeInImage.assetNetwork(placeholder: 'loader.gif', image: user.img!);
+
     return WhiteCard(
       width: 250,
       child: Container(
@@ -213,9 +218,7 @@ class _AvatarContainer extends StatelessWidget {
               child: Stack(
                 children: [
                   ClipOval(
-                    child: Image(
-                      image: AssetImage('noimage.jpg'),
-                    ),
+                    child: Center(child: image),
                   ),
                   Positioned(
                     bottom: 5,
@@ -237,7 +240,29 @@ class _AvatarContainer extends StatelessWidget {
                           Icons.camera_alt_outlined,
                           size: 20,
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          FilePickerResult? result =
+                              await FilePicker.platform.pickFiles(
+                            type: FileType.custom,
+                            allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
+                            allowMultiple: false,
+                          );
+
+                          if (result != null) {
+                            NotificationsService.showBusyIndicator(context);
+
+                            final newUser = await userFormProvider.uploadImage(
+                                '/uploads/usuarios/${user.uid}',
+                                result.files.first.bytes!);
+
+                            Provider.of<UsersProvider>(context, listen: false)
+                                .refreshUser(newUser);
+
+                            Navigator.of(context).pop();
+                          } else {
+                            // User canceled the picker
+                          }
+                        },
                       ),
                     ),
                   )
@@ -248,7 +273,7 @@ class _AvatarContainer extends StatelessWidget {
               height: 20,
             ),
             Text(
-              user!.nombre,
+              user.nombre,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
